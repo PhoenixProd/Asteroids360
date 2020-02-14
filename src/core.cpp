@@ -84,7 +84,7 @@ void Core::Events(void)
                     vessel_array[selecting]->setRotationRight(1);
                     break;
                 case sf::Keyboard::Return:
-                    vessel_array[selecting]->init();
+                    vessel_array[selecting]->init(vlen);
                     break;
                 case sf::Keyboard::Space:
                     vessel_array[selecting]->setShooting(1);

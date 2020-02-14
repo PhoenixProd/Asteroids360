@@ -14,8 +14,8 @@
 
 class Vessel {
 public:
-    Vessel(char id, char max, sf::Font *font, void **vessel_array);
-    void init(void);
+    Vessel(char id, sf::Font *font, void **vessel_array);
+    void init(char vlen);
     void Update(sf::RenderWindow &window, Bullet_t **bullet_list, unsigned char team_mode);
     void PressEvent(unsigned int button);
     void ReleaseEvent(unsigned int button);

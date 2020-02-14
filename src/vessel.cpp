@@ -3,7 +3,7 @@
 #include <vessel.hpp>
 #include <math.h>
 
-void Vessel::init(void)
+void Vessel::init(char vlen)
 {
     alive = 1;
     shield = 100;
@@ -11,14 +11,14 @@ void Vessel::init(void)
     score = 0;
     vel.x = 0;
     vel.y = 0;
-    // Define vessel position and angle
     angle = 0;
+    // Define vessel position
     pos.x = 0;
     pos.y = 0;
     text.setString("  0");
 }
 
-Vessel::Vessel(char id, char max, sf::Font *font, void **vessel_array) : alive(0), shielding(0), shooting(0), accelerating(0), rotation(0)
+Vessel::Vessel(char id, sf::Font *font, void **vessel_array) : alive(0), shielding(0), shooting(0), accelerating(0), rotation(0)
 {
     char str0[] = "textures/spaceships/spaceship00.bmp";
     char str1[] = "textures/teams/spaceship00.bmp";
