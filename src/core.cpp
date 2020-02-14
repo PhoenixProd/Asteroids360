@@ -6,9 +6,9 @@ Core::Core(sf::VideoMode mode, unsigned char nb_vessels)
 {
     int i = 0;
 
-    sf::RenderWindow window(mode, "Asteroids 360");
+    window.create(mode, "Asteroids 360");
     window.setFramerateLimit(FRAMERATE);
-    font.loadFromFile("textures/font.what");
+    font.loadFromFile("textures/text_font.ttf");
 
     vlen = nb_vessels;
     vessel_array = (Vessel **) malloc(sizeof(vessel_array) * vlen);
@@ -52,7 +52,8 @@ void Core::Events(void)
 
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
-            printf("Closing Request : Error : Permission denied.\n");
+            window.close();
+            break;
         } else if (event.type == sf::Event::JoystickButtonPressed) {
             printf("Press Event : Joystick %u, Button %u\n", event.joystickButton.joystickId, event.joystickButton.button);
             vessel_array[event.joystickButton.joystickId]->PressEvent(event.joystickButton.button);
@@ -78,12 +79,16 @@ void Core::Events(void)
                 case sf::Keyboard::Q:
                     vessel_array[selecting]->setRotationRight(1);
                     break;
+                case sf::Keyboard::Return:
+                    vessel_array[selecting]->init();
+                    break;
                 case sf::Keyboard::Space:
                     vessel_array[selecting]->setShooting(1);
                     break;
                 case sf::Keyboard::RShift:
                     vessel_array[selecting]->setAccelerating(1);
                     break;
+                default:;
             }
         } else if (event.type == sf::Event::KeyReleased) {
             switch (event.key.code) {
@@ -102,7 +107,13 @@ void Core::Events(void)
                 case sf::Keyboard::RShift:
                     vessel_array[selecting]->setAccelerating(0);
                     break;
+                default:;
             }
         }
     }
+}
+
+char Core::isAlive(void)
+{
+    return (window.isOpen());
 }

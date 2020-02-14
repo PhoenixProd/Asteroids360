@@ -15,6 +15,7 @@ class Core {
 public:
     Core(sf::VideoMode mode, unsigned char nb_vessels);
     ~Core();
+    char isAlive(void);
     void Update(void);
     void Events(void);
 protected:

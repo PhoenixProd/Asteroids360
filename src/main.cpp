@@ -5,5 +5,9 @@
 int main()
 {
     Core core(sf::VideoMode(1920, 1080), 8);
+    while (core.isAlive()) {
+        core.Update();
+        core.Events();
+    }
     return (0);
 }

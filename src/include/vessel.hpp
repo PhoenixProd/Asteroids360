@@ -8,13 +8,14 @@
 #define SHOOT_VEL 1.f
 #define SHOOT_DISTANCE 32.f
 #define DEG2RAD 180 / 3.1415926
+#define SIZE 32
 // Number of times you have to multiply this
 
 class Vessel {
 public:
     Vessel(char id, char max, sf::Font *font);
     void init(void);
-    void Update(sf::RenderWindow &window, Bullet_t **bullet_list, char team_mode);
+    void Update(sf::RenderWindow &window, Bullet_t **bullet_list, unsigned char team_mode);
     void PressEvent(unsigned int button);
     void ReleaseEvent(unsigned int button);
     void setAccelerating(bool b);
