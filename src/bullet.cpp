@@ -16,21 +16,19 @@ void append_bullet(Bullet_t **bullet_list,
     *bullet_list = bullet;
 }
 
-char collide_with_bullets(Bullet_t *bullets, sf::Vector2f pos, sf::Vector2f size)
+unsigned char collide_with_bullets(Bullet_t *bullets, sf::Vector2f pos, sf::Vector2f size)
 {
-    char nbr_collisions = 0;
-
     size += pos; // size became pos2
     while (bullets != NULL) {
         if (pos.x < bullets->pos.x && size.x > bullets->pos.x
          && pos.y < bullets->pos.y && size.y > bullets->pos.y) {
             // Collision detected
-            nbr_collisions++;
             bullets->lifetime = 0;
+            return bullets->from_player;
         }
         bullets = bullets->next;
     }
-    return (nbr_collisions);
+    return (255);
 }
 
 void update_and_display_bullets(Bullet_t **bullets,

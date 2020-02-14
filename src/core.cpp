@@ -13,7 +13,7 @@ Core::Core(sf::VideoMode mode, unsigned char nb_vessels)
     vlen = nb_vessels;
     vessel_array = (Vessel **) malloc(sizeof(vessel_array) * vlen);
     while (i < nb_vessels) {
-        vessel_array[i] = new Vessel(i, nb_vessels, &font); // Initialize vessels
+        vessel_array[i] = new Vessel(i, nb_vessels, &font, (void **) vessel_array); // Initialize vessels
         i++;
     }
     bullet_list = NULL; // Initialize bullet list

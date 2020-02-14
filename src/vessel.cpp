@@ -18,7 +18,7 @@ void Vessel::init(void)
     pos.y = 0;
 }
 
-Vessel::Vessel(char id, char max, sf::Font *font) : alive(0), shielding(0), shooting(0), accelerating(0), rotation(0)
+Vessel::Vessel(char id, char max, sf::Font *font, void **vessel_array) : alive(0), shielding(0), shooting(0), accelerating(0), rotation(0)
 {
     char str0[] = "textures/spaceships/spaceship00.bmp";
     char str1[] = "textures/teams/spaceship00.bmp";
@@ -39,7 +39,8 @@ Vessel::Vessel(char id, char max, sf::Font *font) : alive(0), shielding(0), shoo
     vel.y = 0;
     size.x = SIZE;
     size.y = SIZE;
-    text.setOrigin(0, -32);
+    text.setOrigin(SIZE/2, -SIZE/2);
+    varr = (Vessel **) vessel_array;
 }
 
 void Vessel::Update(sf::RenderWindow &window, Bullet_t **bullet_list, unsigned char team_mode)
@@ -62,10 +63,30 @@ void Vessel::Update(sf::RenderWindow &window, Bullet_t **bullet_list, unsigned c
         append_bullet(bullet_list, pos + size / 2.f + axis * SHOOT_DISTANCE, vel + axis * SHOOT_VEL, myid);
     }
     // Collision
+    unsigned char bcoll = collide_with_bullets(*bullet_list, pos, vel);
+    if (bcoll != 255) {
+        alive = 0;
+        varr[bcoll]->addScore(PTS_FROM_VESSEL);
+        return;
+    }
     // Display
     sprites[team_mode].setPosition(pos);
     sprites[team_mode].setRotation(angle);
+    text.setPosition(pos);
     window.draw(sprites[team_mode]);
+}
+
+void Vessel::addScore(int points)
+{
+    char actual[] = "   \0";
+
+    score += points;
+    actual[2] = '0' + score % 10;
+    if (score >= 10)
+        actual[1] = '0' + (score / 10) % 10;
+    if (score >= 100)
+        actual[0] = '0' + (score / 100) % 10;
+    text.setString(actual);
 }
 
 void Vessel::setAccelerating(bool b)

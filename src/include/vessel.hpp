@@ -7,13 +7,13 @@
 #define THRUST 0.1f
 #define SHOOT_VEL 1.f
 #define SHOOT_DISTANCE 32.f
-#define DEG2RAD 180 / 3.1415926
+#define DEG2RAD 3.1415926 / 180
 #define SIZE 32
 // Number of times you have to multiply this
 
 class Vessel {
 public:
-    Vessel(char id, char max, sf::Font *font);
+    Vessel(char id, char max, sf::Font *font, void **vessel_array);
     void init(void);
     void Update(sf::RenderWindow &window, Bullet_t **bullet_list, unsigned char team_mode);
     void PressEvent(unsigned int button);
@@ -23,6 +23,7 @@ public:
     void setRotationRight(bool b);
     void setShielding(bool b);
     void setShooting(bool b);
+    void addScore(int points);
 protected:
     char alive;             // Is vessel alive
     char myid;              // Vessel id
@@ -43,6 +44,8 @@ protected:
     int shield;         // Shield time
     float rotation;     // Vessel rotation
     int score;          // Score
+
+    Vessel **varr;
 };
 
 #endif // _VESSEL_HPP_

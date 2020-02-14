@@ -9,7 +9,6 @@
 #include <stdlib.h>
 
 #define FRAMERATE 60
-#define FRAME_DELAY 1/FRAMERATE
 
 class Core {
 public:
