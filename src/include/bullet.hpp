@@ -14,7 +14,7 @@ typedef struct Bullet {
 
 void append_bullet(Bullet_t **bullet_list,
     sf::Vector2f pos, sf::Vector2f vel, char from_player);
-unsigned char collide_with_bullets(Bullet_t *bullets, sf::Vector2f pos, sf::Vector2f size);
+unsigned char collide_with_bullets(Bullet_t *bullets, sf::Vector2f pos, sf::Vector2f size, unsigned char vessel_id);
 void update_and_display_bullets(Bullet_t **bullets,
     sf::RenderWindow &window, sf::Sprite &sprite);
 

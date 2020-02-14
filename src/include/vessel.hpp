@@ -5,10 +5,11 @@
 // If 60 fps
 #define COOLDOWN 100
 #define THRUST 0.1f
-#define SHOOT_VEL 1.f
-#define SHOOT_DISTANCE 32.f
+#define SHOOT_VEL 4.f
+#define SHOOT_DISTANCE 16.f
 #define DEG2RAD 3.1415926 / 180
 #define SIZE 32
+#define SCORE_SIZE 12
 // Number of times you have to multiply this
 
 class Vessel {

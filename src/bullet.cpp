@@ -16,12 +16,14 @@ void append_bullet(Bullet_t **bullet_list,
     *bullet_list = bullet;
 }
 
-unsigned char collide_with_bullets(Bullet_t *bullets, sf::Vector2f pos, sf::Vector2f size)
+unsigned char collide_with_bullets(Bullet_t *bullets, sf::Vector2f pos, sf::Vector2f size, unsigned char vessel_id)
 {
-    size += pos; // size became pos2
+    pos -= size / 2.f;  // pos became pos1
+    size += pos;        // size became pos2
     while (bullets != NULL) {
         if (pos.x < bullets->pos.x && size.x > bullets->pos.x
-         && pos.y < bullets->pos.y && size.y > bullets->pos.y) {
+         && pos.y < bullets->pos.y && size.y > bullets->pos.y
+         && bullets->from_player != vessel_id) {
             // Collision detected
             bullets->lifetime = 0;
             return bullets->from_player;

@@ -5,7 +5,6 @@
 
 void Vessel::init(void)
 {
-    printf("Vessel initialized.\n");
     alive = 1;
     shield = 100;
     shoot_delay = 0;
@@ -16,6 +15,7 @@ void Vessel::init(void)
     angle = 0;
     pos.x = 0;
     pos.y = 0;
+    text.setString("  0");
 }
 
 Vessel::Vessel(char id, char max, sf::Font *font, void **vessel_array) : alive(0), shielding(0), shooting(0), accelerating(0), rotation(0)
@@ -33,13 +33,14 @@ Vessel::Vessel(char id, char max, sf::Font *font, void **vessel_array) : alive(0
     sprites[0].setOrigin(SIZE/2, SIZE/2);
     sprites[1].setOrigin(SIZE/2, SIZE/2);
     text.setFont(*font);
+    text.setOrigin(SIZE/2, -SIZE/2);
+    text.setCharacterSize(SCORE_SIZE);
     pos.x = 0;
     pos.y = 0;
     vel.x = 0;
     vel.y = 0;
     size.x = SIZE;
     size.y = SIZE;
-    text.setOrigin(SIZE/2, -SIZE/2);
     varr = (Vessel **) vessel_array;
 }
 
@@ -60,11 +61,12 @@ void Vessel::Update(sf::RenderWindow &window, Bullet_t **bullet_list, unsigned c
     } else if (shooting) {
         sf::Vector2f axis(cos(angle * DEG2RAD), sin(angle * DEG2RAD));
         shoot_delay = COOLDOWN;
-        append_bullet(bullet_list, pos + size / 2.f + axis * SHOOT_DISTANCE, vel + axis * SHOOT_VEL, myid);
+        append_bullet(bullet_list, pos + axis * SHOOT_DISTANCE, vel + axis * SHOOT_VEL, myid);
     }
     // Collision
-    unsigned char bcoll = collide_with_bullets(*bullet_list, pos, vel);
+    unsigned char bcoll = collide_with_bullets(*bullet_list, pos, size, myid);
     if (bcoll != 255) {
+        printf("Collision\n");
         alive = 0;
         varr[bcoll]->addScore(PTS_FROM_VESSEL);
         return;
@@ -73,6 +75,8 @@ void Vessel::Update(sf::RenderWindow &window, Bullet_t **bullet_list, unsigned c
     sprites[team_mode].setPosition(pos);
     sprites[team_mode].setRotation(angle);
     text.setPosition(pos);
+    text.setRotation(angle);
+    window.draw(text);
     window.draw(sprites[team_mode]);
 }
 

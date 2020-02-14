@@ -17,6 +17,9 @@ Core::Core(sf::VideoMode mode, unsigned char nb_vessels)
         i++;
     }
     bullet_list = NULL; // Initialize bullet list
+    bullet_texture.loadFromFile("textures/bullet.bmp");
+    bullet_sprite.setTexture(bullet_texture);
+    bullet_sprite.setOrigin(4, 4);
 }
 
 Core::~Core()

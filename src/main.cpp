@@ -8,9 +8,9 @@ int main()
     Core core(sf::VideoMode(1920, 1080), 8);
     sf::Clock clock;
     long int time;
-    long int last = clock.getElapsedTime().asMicroseconds();
     struct timespec wait_time;
     long int loopy = 0;
+    long int last = clock.getElapsedTime().asMicroseconds();
 
     wait_time.tv_sec = 0;
     while (core.isAlive()) {
@@ -24,6 +24,6 @@ int main()
         }
         last += 1000000 / 60;
     }
-    printf("Global framerate : %i\n", (int) (1000000 * loopy / time));
+    printf("Global framerate : %i fps\n", (int) (1000000 * loopy / time + 0.5));
     return (0);
 }
