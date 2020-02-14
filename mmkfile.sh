@@ -53,5 +53,5 @@ valgrind:
 	g++ -g3 -o \$(NAME) \$(FILES) \$(FLAGS)
 
 update:
-	./mmkfile.sh $1 \"$2\"" >> Makefile
+	./mmkfile.sh $1 \"\$(FLAGS)\"" >> Makefile
 echo "Makefile created"

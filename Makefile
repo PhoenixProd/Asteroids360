@@ -7,14 +7,17 @@
 
 NAME = asteroids
 
-FILES = 
+FILES = src/bullet.cpp \
+	src/core.cpp \
+	src/main.cpp \
+	src/vessel.cpp
 
-FLAGS = -lsfml-system -lsfml-graphics
+FLAGS = -lsfml-graphics -lsfml-system -lsfml-window -lm -Isrc/include
 
 all :	$(NAME)
 
 $(NAME):
-	gcc -o $(NAME) $(FILES) $(FLAGS)
+	g++ -o $(NAME) $(FILES) $(FLAGS)
 
 clean:
 	rm -f *.o
@@ -43,11 +46,11 @@ sync:	pull	push
 
 debug:
 	clear
-	gcc -g3 -o $(NAME) $(FILES) -Wall -Wextra $(FLAGS)
+	g++ -g3 -o $(NAME) $(FILES) -Wall -Wextra $(FLAGS)
 
 valgrind:
 	clear
-	gcc -g3 -o $(NAME) $(FILES) $(FLAGS)
+	g++ -g3 -o $(NAME) $(FILES) $(FLAGS)
 
 update:
-	mmkfile asteroids "-lsfml-system -lsfml-graphics"
+	./mmkfile.sh asteroids "$(FLAGS)"
