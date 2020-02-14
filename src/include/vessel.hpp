@@ -25,8 +25,10 @@ public:
     void setShielding(bool b);
     void setShooting(bool b);
     void addScore(int points);
-protected:
+    void collideWithVessel(Vessel *vessel);
+    void collideWithOthers(void);
     char alive;             // Is vessel alive
+protected:
     char myid;              // Vessel id
     sf::Texture textures[2];// Texture
     sf::Sprite sprites[2];  // Sprite

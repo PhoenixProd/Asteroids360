@@ -43,6 +43,7 @@ void Core::Update(void)
     int i = 0;
 
     while (i < vlen) {
+        vessel_array[i]->collideWithOthers();
         vessel_array[i++]->Update(window, &bullet_list, gamemode & 1);
     }
     update_and_display_bullets(&bullet_list, window, bullet_sprite);

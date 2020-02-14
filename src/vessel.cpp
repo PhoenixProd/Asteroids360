@@ -80,6 +80,27 @@ void Vessel::Update(sf::RenderWindow &window, Bullet_t **bullet_list, unsigned c
     window.draw(sprites[team_mode]);
 }
 
+void Vessel::collideWithVessel(Vessel *vessel)
+{
+    if (vessel->pos.x - SIZE < pos.x && vessel->pos.x + SIZE > pos.x
+     && vessel->pos.y - SIZE < pos.y && vessel->pos.y + SIZE > pos.y
+     && (vessel->pos.x - pos.x) * (vessel->pos.x - pos.x) + (vessel->pos.y - pos.y) * (vessel->pos.y - pos.y) < SIZE * SIZE) {
+        if (!vessel->shielding) vessel->alive = 0;
+        if (!shielding) alive = 0;
+    }
+}
+
+void Vessel::collideWithOthers(void)
+{
+    unsigned short i = myid;
+
+    if (!alive) return;  // No collision for death vessel
+    while (i-- > 0) { // Begin with the next vessel
+        if (varr[i]->alive)
+            varr[i]->collideWithVessel(this);
+    }
+}
+
 void Vessel::addScore(int points)
 {
     char actual[] = "   \0";
